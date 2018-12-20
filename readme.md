@@ -1,6 +1,4 @@
-# restspec CLI
-
-A CLI for restspec.
+# restspec
 
 ## Example file
 
