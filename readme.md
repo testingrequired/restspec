@@ -2,6 +2,10 @@
 
 Interact or test REST resources from the command line.
 
+## Use cases
+
+- API testing (smoke, acceptance)
+
 ## Installation
 
 ```bash
@@ -12,7 +16,7 @@ $ npm install @testingrequired/restspec
 
 ### Rest Files
 
-A rest file is a javascript file that defines a single request plus optional tests. They are intended to be edited as code and live with your project's tests.
+A rest file defines a single request with optional tests. They are plain javascript files that are intended to be edited as code. They should live with your project's tests.
 
 #### Example
 
