@@ -1,33 +1,47 @@
 ![restspec](/docs/restspec.png)
 
+Interact or test REST resources from the command line.
+
+## Installation
+
+```bash
+$ npm install @testingrequired/restspec
+```
+
 ## Usage
 
-### Example file
+### Rest Files
+
+A rest file is a javascript file that defines a single request plus optional tests. They are intended to be edited as code and live with your project's tests.
+
+#### Example
+
+Rest files can be located anywhere.
 
 ```javascript
-// ./rest-files/google.js
+// ./tests/rest/google.js
 module.exports = {
   name: "Google",
   url: "http://google.com",
   options: { method: "GET" },
-  tests: (res, assert) => [() => assert.equal(res.status, 200)]
+  tests: (response, assert) => [() => assert.equal(response.status, 200)]
 };
 ```
 
 ### Run
 
-Calls url and prints response
+Calls url and prints response from rest file
 
 ```bash
-$ restspec run ./rest-files/google.js
+$ restspec run ./tests/rest/google.js
 ```
 
 ### Test
 
-Calls url and runs tests
+Calls url and runs tests from rest file
 
 ```bash
-$ restspec test ./rest-files/google.js
+$ restspec test ./tests/rest/google.js
 ```
 
 ## License
