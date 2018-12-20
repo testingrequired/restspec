@@ -9,7 +9,7 @@ Interact or test REST resources from the command line.
 ## Installation
 
 ```bash
-$ npm install @testingrequired/restspec
+$ npm install @testingrequired/restspec@0.0.0
 ```
 
 ## Usage
