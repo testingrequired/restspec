@@ -4,26 +4,15 @@ module.exports = {
   name: "run",
   alias: ["r"],
   run: async toolbox => {
-    const { print, parameters, loadRelativeFile } = toolbox;
+    const { loadRestFile } = toolbox;
 
-    const filePath = parameters.first;
+    let restFile = loadRestFile(toolbox.parameters.first);
 
-    let file;
+    toolbox.print.info(`Running: ${restFile.name}`);
 
-    try {
-      file = loadRelativeFile(filePath);
-    } catch (e) {
-      print.error(`Error loading file: ${e}`);
-      process.exit(0);
-    }
+    const response = await fetch(restFile.url, restFile.options);
 
-    const { name, url, options } = file;
-
-    print.info(`Running: ${name}`);
-
-    const response = await fetch(url, options);
-
-    print.info(JSON.stringify(mapResponse(response), null, 2));
+    toolbox.print.info(JSON.stringify(mapResponse(response), null, 2));
   }
 };
 

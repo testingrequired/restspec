@@ -5,33 +5,25 @@ module.exports = {
   name: "test",
   alias: ["t"],
   run: async toolbox => {
-    const { print, parameters, loadRelativeFile } = toolbox;
+    const { loadRestFile } = toolbox;
 
-    const filePath = parameters.first;
+    let restFile = loadRestFile(toolbox.parameters.first);
 
-    let file;
+    toolbox.print.info(`Testing: ${restFile.name}`);
 
-    try {
-      file = loadRelativeFile(filePath);
-    } catch (e) {
-      print.error(`Error loading file: ${e}`);
-      process.exit(0);
-    }
+    const response = await fetch(restFile.url, restFile.options);
 
-    const { name, url, options, tests } = file;
+    if (restFile.tests) {
+      const tests = restFile.tests(response, assert);
 
-    print.info(`Testing: ${name}`);
-
-    const response = await fetch(url, options);
-
-    if (tests) {
-      const allTests = tests(response, assert);
-      allTests.forEach((test, i) => {
+      tests.forEach((test, i) => {
         try {
           test();
-          print.success(`Test: ${i + 1} of ${allTests.length}: Passed!`);
+          toolbox.print.success(`Test: ${i + 1} of ${tests.length}: Passed!`);
         } catch (e) {
-          print.warning(`Test: ${i + 1} of ${allTests.length}: Failed!: ${e}`);
+          toolbox.print.warning(
+            `Test: ${i + 1} of ${tests.length}: Failed!: ${e}`
+          );
         }
       });
     }
