@@ -1,19 +1,18 @@
 const fetch = require("node-fetch");
-const loadFile = require("../utils/loadFile");
 const assert = require("assert");
 
 module.exports = {
   name: "test",
   alias: ["t"],
   run: async toolbox => {
-    const { print, parameters } = toolbox;
+    const { print, parameters, loadRelativeFile } = toolbox;
 
     const filePath = parameters.first;
 
     let file;
 
     try {
-      file = loadFile(filePath);
+      file = loadRelativeFile(filePath);
     } catch (e) {
       print.error(`Error loading file: ${e}`);
       process.exit(0);
