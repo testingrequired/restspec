@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const loadFile = require("../utils/loadFile");
+const assert = require("assert");
 
 module.exports = {
   name: "test",
@@ -25,12 +26,13 @@ module.exports = {
     const response = await fetch(url, options);
 
     if (tests) {
-      tests(response).forEach((test, i) => {
+      const allTests = tests(response, assert);
+      allTests.forEach((test, i) => {
         try {
           test();
-          print.success(`Test: ${i + 1} of ${tests.length}: Passed!`);
+          print.success(`Test: ${i + 1} of ${allTests.length}: Passed!`);
         } catch (e) {
-          print.warning(`Test: ${i + 1} of ${tests.length}: Failed!: ${e}`);
+          print.warning(`Test: ${i + 1} of ${allTests.length}: Failed!: ${e}`);
         }
       });
     }
