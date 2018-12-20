@@ -27,11 +27,15 @@ The format for rest files is not stable and is subject to change with any new re
 Rest files can be located anywhere.
 
 ```javascript
-// ./tests/rest/google.js
+// ./tests/rest/example.js
 module.exports = {
-  name: "Google",
-  url: "http://google.com",
-  options: { method: "GET" },
+  name: "Example",
+  method: "GET",
+  url: "http://example.com/",
+  redirect: "follow",
+  headers: {
+    "Content-Type": "application/json"
+  },
   tests: (response, assert) => [() => assert.equal(response.status, 200)]
 };
 ```

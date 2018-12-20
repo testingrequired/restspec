@@ -6,3 +6,4 @@ coverage
 yarn.lock
 package.lock
 test-files
+.vscode
