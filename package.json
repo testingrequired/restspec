@@ -1,5 +1,5 @@
 {
-  "name": "restspec",
+  "name": "@testingrequired/restspec",
   "version": "0.0.1",
   "description": "restspec CLI",
   "private": true,
