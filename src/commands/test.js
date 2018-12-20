@@ -1,5 +1,5 @@
-const path = require("path");
 const fetch = require("node-fetch");
+const loadFile = require("../utils/loadFile");
 
 module.exports = {
   name: "test",
@@ -36,9 +36,3 @@ module.exports = {
     }
   }
 };
-
-function loadFile(filePath) {
-  const fullPath = path.join(process.cwd(), filePath);
-  const file = require(fullPath);
-  return file;
-}

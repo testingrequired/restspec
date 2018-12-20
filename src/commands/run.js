@@ -1,5 +1,5 @@
-const path = require("path");
 const fetch = require("node-fetch");
+const loadFile = require("../utils/loadFile");
 
 module.exports = {
   name: "run",
@@ -27,12 +27,6 @@ module.exports = {
     print.info(JSON.stringify(mapResponse(response), null, 2));
   }
 };
-
-function loadFile(filePath) {
-  const fullPath = path.join(process.cwd(), filePath);
-  const file = require(fullPath);
-  return file;
-}
 
 function mapResponse(response) {
   const {
