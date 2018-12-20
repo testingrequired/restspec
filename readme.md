@@ -1,4 +1,4 @@
-# restspec
+![restspec](/docs/restspec.png)
 
 ## Usage
 
