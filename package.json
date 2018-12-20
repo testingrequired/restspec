@@ -31,7 +31,11 @@
     "jest": "^23.6.0"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/src/"
+    ]
   },
   "standard": {
     "env": [
