@@ -20,7 +20,7 @@ module.exports = {
 
     const { name, url, options, tests } = file;
 
-    print.info(`Running: ${name}`);
+    print.info(`Testing: ${name}`);
 
     const response = await fetch(url, options);
 
