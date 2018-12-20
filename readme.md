@@ -18,6 +18,10 @@ $ npm install @testingrequired/restspec
 
 A rest file defines a single request with optional tests. They are plain javascript files that are intended to be edited as code. They should live with your project's tests.
 
+#### Warning
+
+The format for rest files is not stable and is subject to change with any new release.
+
 #### Example
 
 Rest files can be located anywhere.
