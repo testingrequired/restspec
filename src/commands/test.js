@@ -25,9 +25,9 @@ module.exports = {
     const response = await fetch(url, options);
 
     if (tests) {
-      tests.forEach((test, i) => {
+      tests(response).forEach((test, i) => {
         try {
-          test(response);
+          test();
           print.success(`Test: ${i + 1} of ${tests.length}: Passed!`);
         } catch (e) {
           print.warning(`Test: ${i + 1} of ${tests.length}: Failed!: ${e}`);
