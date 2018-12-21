@@ -2,9 +2,9 @@ module.exports = {
   name: "run",
   alias: ["r"],
   run: async toolbox => {
-    const { loadRestFile, fetchUsingRestFile } = toolbox;
+    const { loadRestFile, parameters, fetchUsingRestFile } = toolbox;
 
-    let restFile = loadRestFile(toolbox.parameters.first);
+    let restFile = loadRestFile(parameters.first);
 
     toolbox.print.info(`Running: ${restFile.name}`);
 
