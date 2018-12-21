@@ -32,13 +32,21 @@ module.exports = {
   name: "Example",
   method: "GET",
   url: "http://example.com/",
-  redirect: "follow",
   headers: {
     "Content-Type": "application/json"
   },
+  redirect: "follow",
   tests: (response, assert) => [() => assert.equal(response.status, 200)]
 };
 ```
+
+#### Parameters
+
+- name `string`
+- method `string`
+- url `string`
+- headers `{[string]: string}`
+- redirects `follow | error | manual`
 
 ### Run
 
