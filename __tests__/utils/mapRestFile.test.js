@@ -43,3 +43,13 @@ test(`should map first argument to url`, () => {
 test(`should map second argument to options`, () => {
   expect(result[1]).toEqual(expectedOptions);
 });
+
+test("should map if url parameters not set", () => {
+  expect(() => {
+    mapRestFile({
+      name: "Google",
+      method: "GET",
+      url: "http://example.com/"
+    });
+  }).not.toThrow();
+});

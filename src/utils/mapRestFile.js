@@ -1,6 +1,6 @@
 module.exports = function mapRestFile(restFile) {
   const { name, url, tests, parameters, body, ...options } = restFile;
-  const formattedUrl = `${url}?${qs(parameters)}`;
+  const formattedUrl = parameters ? `${url}?${qs(parameters)}` : url;
   const formattedBody = JSON.stringify(body);
   return [formattedUrl, Object.assign({}, options, { body: formattedBody })];
 };
