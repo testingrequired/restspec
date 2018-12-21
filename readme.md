@@ -47,6 +47,7 @@ module.exports = {
 - url `string`
 - headers `{[string]: string}`
 - redirects `follow | error | manual`
+- body `any`
 
 ### Run
 

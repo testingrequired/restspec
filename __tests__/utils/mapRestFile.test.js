@@ -7,7 +7,8 @@ const expectedOptions = {
   headers: {
     "Content-Type": "application/json"
   },
-  redirect: "follow"
+  redirect: "follow",
+  body: '{"value":1}'
 };
 
 const restFile = {
@@ -15,6 +16,9 @@ const restFile = {
   method: "GET",
   url: "http://example.com/",
   redirect: "follow",
+  body: {
+    value: 1
+  },
   parameters: { foo: "bar" },
   headers: {
     "Content-Type": "application/json"
