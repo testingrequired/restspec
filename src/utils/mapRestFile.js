@@ -7,5 +7,5 @@ module.exports = function mapRestFile(restFile) {
 
 const qs = params =>
   Object.keys(params)
-    .map(k => `${k}=${params[k]}`)
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
     .join("&");
