@@ -35,7 +35,7 @@
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/src/"
+      "/src/commands/test.js"
     ]
   },
   "standard": {
