@@ -1,14 +1,13 @@
 const getRestFileTests = require("../utils/getRestFileTests");
-
 const runRestFileTests = require("../utils/runRestFileTests");
 
 module.exports = {
   name: "test",
   alias: ["t"],
   run: async toolbox => {
-    const { loadRestFile, fetchUsingRestFile, print } = toolbox;
+    const { loadRestFile, fetchUsingRestFile, print, parameters } = toolbox;
 
-    let restFile = loadRestFile(toolbox.parameters.first);
+    let restFile = loadRestFile(parameters.first);
     toolbox.print.info(`Testing: ${restFile.name}`);
 
     const response = await fetchUsingRestFile(restFile);

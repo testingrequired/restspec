@@ -1,10 +1,11 @@
 const td = require("testdouble");
 
-const command = require("../.././src/commands/test");
+const expectedTests = [td.func()];
 
 const expectedRestFile = {
   name: "Test File",
-  tests: [td.func()]
+  url: "expected url",
+  tests: expectedTests
 };
 
 const expectedResponse = {
@@ -17,15 +18,19 @@ const expectedResponse = {
   ok: true
 };
 
+let command;
 let toolbox;
+let getRestFileTests;
+let runRestFileTests;
 
 beforeEach(() => {
   toolbox = td.object({
     loadRestFile: td.func(),
     fetchUsingRestFile: td.func(),
-    runRestFileTests: td.func(),
     print: td.object({
-      info: td.func()
+      info: td.func(),
+      success: td.func(),
+      warning: td.func()
     }),
     parameters: td.object({
       first: "restFile.js"
@@ -39,6 +44,12 @@ beforeEach(() => {
   td.when(toolbox.fetchUsingRestFile(expectedRestFile)).thenResolve(
     expectedResponse
   );
+
+  getRestFileTests = td.replace("../utils/getRestFileTests");
+
+  runRestFileTests = td.replace("../utils/runRestFileTests");
+
+  command = require("./test");
 });
 
 afterEach(() => {
@@ -46,8 +57,18 @@ afterEach(() => {
 });
 
 test("should run correctly", async () => {
+  td.when(getRestFileTests(expectedRestFile, expectedResponse)).thenReturn(
+    expectedTests
+  );
+
   await command.run(toolbox);
 
   td.verify(toolbox.print.info(`Testing: ${expectedRestFile.name}`));
-  td.verify(toolbox.runRestFileTests(expectedRestFile, expectedResponse));
+  td.verify(
+    runRestFileTests(
+      expectedTests,
+      td.matchers.isA(Function),
+      td.matchers.isA(Function)
+    )
+  );
 });
