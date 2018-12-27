@@ -33,6 +33,7 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./src/setupTests.js",
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/src/commands/test.js"
