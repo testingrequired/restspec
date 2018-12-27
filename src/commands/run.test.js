@@ -1,5 +1,3 @@
-const td = require("testdouble");
-
 const command = require("../.././src/commands/run");
 
 const expectedRestFile = {
@@ -47,10 +45,6 @@ beforeEach(() => {
   td.when(toolbox.fetchUsingRestFile(expectedRestFile)).thenResolve(
     expectedResponse
   );
-});
-
-afterEach(() => {
-  td.reset();
 });
 
 test("should run correctly", async () => {

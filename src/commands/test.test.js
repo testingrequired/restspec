@@ -1,5 +1,3 @@
-const td = require("testdouble");
-
 const expectedTests = [td.func()];
 
 const expectedRestFile = {
@@ -50,10 +48,6 @@ beforeEach(() => {
   runRestFileTests = td.replace("../utils/runRestFileTests");
 
   command = require("./test");
-});
-
-afterEach(() => {
-  td.reset();
 });
 
 test("should run correctly", async () => {
