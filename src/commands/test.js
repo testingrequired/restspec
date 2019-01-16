@@ -1,8 +1,5 @@
 const fetch = require("node-fetch");
-const getTests = require("../restfile/getTests");
-const runTests = require("../restfile/runTests");
-const mapForFetch = require("../restfile/mapForFetch");
-const load = require("../restfile/load");
+const { load, mapForFetch, getTests, runTests } = require("../restfile");
 
 module.exports = {
   name: "test",

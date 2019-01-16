@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
-const load = require("../restfile/load");
-const mapForFetch = require("../restfile/mapForFetch");
+const { load, mapForFetch } = require("../restfile");
 
 module.exports = {
   name: "run",
