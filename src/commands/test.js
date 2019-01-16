@@ -12,7 +12,7 @@ module.exports = {
 
     const response = await fetchUsingRestFile(restFile);
 
-    const tests = getRestFileTests(restFile, response);
+    const tests = getRestFileTests(restFile.tests, response);
 
     runRestFileTests(
       tests,

@@ -1,5 +1,3 @@
 const assert = require("assert");
 
-module.exports = (restFile, response) => {
-  return restFile.tests(response, assert);
-};
+module.exports = (getTests, response) => getTests(response, assert);

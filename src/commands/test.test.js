@@ -51,9 +51,9 @@ beforeEach(() => {
 });
 
 test("should run correctly", async () => {
-  td.when(getRestFileTests(expectedRestFile, expectedResponse)).thenReturn(
-    expectedTests
-  );
+  td.when(
+    getRestFileTests(expectedRestFile.tests, expectedResponse)
+  ).thenReturn(expectedTests);
 
   await command.run(toolbox);
 
