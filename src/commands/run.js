@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
-const loadRestFile = require("../utils/loadRestFile");
-const mapRestFile = require("../utils/mapRestFile");
+const load = require("../restfile/load");
+const mapForFetch = require("../restfile/mapForFetch");
 
 module.exports = {
   name: "run",
@@ -8,11 +8,11 @@ module.exports = {
   run: async toolbox => {
     const { print, parameters } = toolbox;
 
-    let restFile = loadRestFile(parameters.first);
+    let restFile = load(parameters.first);
 
     print.info(`Running: ${restFile.name}`);
 
-    const [url, options] = mapRestFile(restFile);
+    const [url, options] = mapForFetch(restFile);
 
     const response = await fetch(url, options);
 
