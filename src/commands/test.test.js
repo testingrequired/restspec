@@ -16,15 +16,18 @@ const expectedResponse = {
   ok: true
 };
 
+const expectedFetchOptions = { foo: "bar" };
+
 let command;
 let toolbox;
-let getRestFileTests;
-let runRestFileTests;
+let load;
+let mapForFetch;
+let fetch;
+let getTests;
+let runTests;
 
 beforeEach(() => {
   toolbox = td.object({
-    loadRestFile: td.func(),
-    fetchUsingRestFile: td.func(),
     print: td.object({
       info: td.func(),
       success: td.func(),
@@ -35,31 +38,37 @@ beforeEach(() => {
     })
   });
 
-  td.when(toolbox.loadRestFile(toolbox.parameters.first)).thenReturn(
-    expectedRestFile
-  );
+  load = td.replace("../restfile/load");
+  td.when(load(toolbox.parameters.first)).thenReturn(expectedRestFile);
 
-  td.when(toolbox.fetchUsingRestFile(expectedRestFile)).thenResolve(
+  mapForFetch = td.replace("../restfile/mapForFetch");
+  td.when(mapForFetch(expectedRestFile)).thenReturn([
+    expectedRestFile.url,
+    expectedFetchOptions
+  ]);
+
+  fetch = td.replace("node-fetch");
+  td.when(fetch(expectedRestFile.url, expectedFetchOptions)).thenResolve(
     expectedResponse
   );
 
-  getRestFileTests = td.replace("../utils/getRestFileTests");
+  getTests = td.replace("../restfile/getTests");
+  td.when(getTests(expectedRestFile.tests, expectedResponse)).thenReturn(
+    expectedTests
+  );
 
-  runRestFileTests = td.replace("../utils/runRestFileTests");
+  runTests = td.replace("../restfile/runTests");
 
   command = require("./test");
 });
 
 test("should run correctly", async () => {
-  td.when(
-    getRestFileTests(expectedRestFile.tests, expectedResponse)
-  ).thenReturn(expectedTests);
-
   await command.run(toolbox);
 
   td.verify(toolbox.print.info(`Testing: ${expectedRestFile.name}`));
+
   td.verify(
-    runRestFileTests(
+    runTests(
       expectedTests,
       td.matchers.isA(Function),
       td.matchers.isA(Function)

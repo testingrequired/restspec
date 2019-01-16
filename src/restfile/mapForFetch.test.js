@@ -1,4 +1,4 @@
-const mapRestFile = require("../../src/utils/mapRestFile");
+const mapForFetch = require("./mapForFetch");
 
 const expectedUrl = "http://example.com/?foo=bar";
 
@@ -29,7 +29,7 @@ const restFile = {
 let result;
 
 beforeEach(() => {
-  result = mapRestFile(restFile);
+  result = mapForFetch(restFile);
 });
 
 test(`should map correct number of arguments`, () => {
@@ -46,7 +46,7 @@ test(`should map second argument to options`, () => {
 
 test("should map if url parameters not set", () => {
   expect(() => {
-    mapRestFile({
+    mapForFetch({
       name: "Google",
       method: "GET",
       url: "http://example.com/"

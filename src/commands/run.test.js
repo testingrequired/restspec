@@ -1,5 +1,3 @@
-const command = require("../.././src/commands/run");
-
 const expectedRestFile = {
   name: "Test File"
 };
@@ -24,12 +22,15 @@ const expectedMappedResponse = {
   ok: true
 };
 
+const expectedFetchOptions = { foo: "bar" };
+
+let command;
 let toolbox;
+let load;
+let fetch;
 
 beforeEach(() => {
   toolbox = td.object({
-    loadRestFile: td.func(),
-    fetchUsingRestFile: td.func(),
     print: td.object({
       info: td.func()
     }),
@@ -38,13 +39,21 @@ beforeEach(() => {
     })
   });
 
-  td.when(toolbox.loadRestFile(toolbox.parameters.first)).thenReturn(
-    expectedRestFile
-  );
+  load = td.replace("../restfile/load");
+  td.when(load(toolbox.parameters.first)).thenReturn(expectedRestFile);
 
-  td.when(toolbox.fetchUsingRestFile(expectedRestFile)).thenResolve(
+  mapForFetch = td.replace("../restfile/mapForFetch");
+  td.when(mapForFetch(expectedRestFile)).thenReturn([
+    expectedRestFile.url,
+    expectedFetchOptions
+  ]);
+
+  fetch = td.replace("node-fetch");
+  td.when(fetch(expectedRestFile.url, expectedFetchOptions)).thenResolve(
     expectedResponse
   );
+
+  command = require("./run");
 });
 
 test("should run correctly", async () => {

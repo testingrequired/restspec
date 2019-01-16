@@ -1,4 +1,4 @@
-const validateRestFile = require("./validateRestFile");
+const validate = require("./validate");
 
 const expectedName = "expected name";
 const expectedUrl = "expected url";
@@ -10,7 +10,7 @@ test("should throw error if name is missing", () => {
     method: expectedMethod
   };
 
-  const errors = validateRestFile(restFile);
+  const errors = validate(restFile);
 
   expect(errors).toHaveLength(1);
   expect(errors[0].message).toBe("Name is required");
@@ -22,7 +22,7 @@ test("should throw error if url is missing", () => {
     method: expectedMethod
   };
 
-  const errors = validateRestFile(restFile);
+  const errors = validate(restFile);
 
   expect(errors).toHaveLength(1);
   expect(errors[0].message).toBe("Url is required");
@@ -34,7 +34,7 @@ test("should throw error if method is missing", () => {
     url: expectedUrl
   };
 
-  const errors = validateRestFile(restFile);
+  const errors = validate(restFile);
 
   expect(errors).toHaveLength(1);
   expect(errors[0].message).toBe("Method is required");
@@ -43,7 +43,7 @@ test("should throw error if method is missing", () => {
 test("should return all errors", () => {
   const restFile = {};
 
-  const errors = validateRestFile(restFile);
+  const errors = validate(restFile);
 
   expect(errors).toHaveLength(3);
 });
