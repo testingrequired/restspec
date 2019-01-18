@@ -1,4 +1,4 @@
-const assert = require("assert");
+const lazyAssert = require("./lazyAssert");
 
 module.exports = (getTests, response, responseTime) =>
-  getTests(response, responseTime, assert);
+  getTests(response, responseTime, lazyAssert);
