@@ -23,7 +23,7 @@ module.exports = {
 
     toolbox.print.info(`Response time: ${responseTime} ms`);
 
-    const tests = getTests(restFile.tests, response, responseTime);
+    const tests = await getTests(restFile.tests, response, responseTime);
 
     runTests(
       tests,

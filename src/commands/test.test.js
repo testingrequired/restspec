@@ -69,7 +69,7 @@ beforeEach(() => {
   getTests = td.replace("../restfile/getTests");
   td.when(
     getTests(expectedRestFile.tests, expectedResponse, expectedResponseTime)
-  ).thenReturn(expectedTests);
+  ).thenResolve(expectedTests);
 
   runTests = td.replace("../restfile/runTests");
 
