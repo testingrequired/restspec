@@ -24,9 +24,12 @@ const expectedMappedResponse = {
 
 const expectedFetchOptions = { foo: "bar" };
 
+const expectedResponseTime = 10;
+
 let command;
 let toolbox;
 let load;
+let perf_hooks;
 let fetch;
 
 beforeEach(() => {
@@ -48,6 +51,17 @@ beforeEach(() => {
     expectedFetchOptions
   ]);
 
+  perf_hooks = td.replace(
+    "perf_hooks",
+    td.object({
+      performance: td.object({
+        now: td.func()
+      })
+    })
+  );
+
+  td.when(perf_hooks.performance.now()).thenReturn(0, expectedResponseTime);
+
   fetch = td.replace("node-fetch");
   td.when(fetch(expectedRestFile.url, expectedFetchOptions)).thenResolve(
     expectedResponse
@@ -60,6 +74,9 @@ test("should run correctly", async () => {
   await command.run(toolbox);
 
   td.verify(toolbox.print.info(`Running: ${expectedRestFile.name}`));
+
+  td.verify(toolbox.print.info(`Response time: ${expectedResponseTime} ms`));
+
   td.verify(
     toolbox.print.info(JSON.stringify(expectedMappedResponse, null, 2))
   );

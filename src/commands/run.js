@@ -1,3 +1,4 @@
+const { performance } = require("perf_hooks");
 const fetch = require("node-fetch");
 const { load, mapForFetch } = require("../restfile");
 
@@ -13,7 +14,15 @@ module.exports = {
 
     const [url, options] = mapForFetch(restFile);
 
+    const startTime = performance.now();
+
     const response = await fetch(url, options);
+
+    const endTime = performance.now();
+
+    const responseTime = endTime - startTime;
+
+    toolbox.print.info(`Response time: ${responseTime} ms`);
 
     toolbox.print.info(JSON.stringify(mapResponse(response), null, 2));
   }
